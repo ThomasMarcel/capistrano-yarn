@@ -26,7 +26,7 @@ namespace :yarn do
     on roles fetch(:yarn_roles) do
       within fetch(:yarn_target_path, release_path) do
         with fetch(:yarn_env_variables, {}) do
-          execute fetch(:yarn_bin), 'build', fetch(:yarn_flags)
+          execute fetch(:yarn_bin), 'build'
         end
       end
     end
