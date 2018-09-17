@@ -22,7 +22,18 @@ namespace :yarn do
     end
   end
 
+  task :build do
+    on roles fetch(:yarn_roles) do
+      within fetch(:yarn_target_path, release_path) do
+        with fetch(:yarn_env_variables, {}) do
+          execute fetch(:yarn_bin), 'build', fetch(:yarn_flags)
+        end
+      end
+    end
+  end
+
   before 'deploy:updated', 'yarn:install'
+  before 'deploy:updated', 'yarn:build'
 
   desc <<-DESC
         Remove extraneous packages via yarn. This command is executed within \
